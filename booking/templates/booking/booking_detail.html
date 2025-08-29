@@ -1,0 +1,98 @@
+{% extends 'booking/base.html' %}
+
+{% block title %}Booking Details - Travel Booking{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header bg-{% if booking.status == 'confirmed' %}success{% else %}danger{% endif %} text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-ticket-alt"></i> Booking Details
+                    <span class="badge bg-light text-dark float-end">{{ booking.get_status_display }}</span>
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Booking Information</h5>
+                        <table class="table table-borderless">
+                            <tr>
+                                <td><strong>Booking ID:</strong></td>
+                                <td>{{ booking.booking_id }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Status:</strong></td>
+                                <td>
+                                    <span class="badge bg-{% if booking.status == 'confirmed' %}success{% else %}danger{% endif %}">
+                                        {{ booking.get_status_display }}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Booking Date:</strong></td>
+                                <td>{{ booking.booking_date|date:"M d, Y H:i" }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Number of Seats:</strong></td>
+                                <td>{{ booking.number_of_seats }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total Price:</strong></td>
+                                <td><h5 class="text-primary">${{ booking.total_price }}</h5></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Travel Information</h5>
+                        <table class="table table-borderless">
+                            <tr>
+                                <td><strong>Travel ID:</strong></td>
+                                <td>{{ booking.travel_option.travel_id }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Type:</strong></td>
+                                <td>
+                                    <i class="fas fa-{% if booking.travel_option.type == 'flight' %}plane{% elif booking.travel_option.type == 'train' %}train{% else %}bus{% endif %}"></i>
+                                    {{ booking.travel_option.get_type_display }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>From:</strong></td>
+                                <td>{{ booking.travel_option.source }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>To:</strong></td>
+                                <td>{{ booking.travel_option.destination }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Date & Time:</strong></td>
+                                <td>{{ booking.travel_option.date_time|date:"M d, Y H:i" }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Price per seat:</strong></td>
+                                <td>${{ booking.travel_option.price }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <hr>
+                
+                <div class="text-center">
+                    {% if booking.status == 'confirmed' %}
+                        <a href="{% url 'cancel_booking' booking.booking_id %}" 
+                           class="btn btn-danger"
+                           onclick="return confirm('Are you sure you want to cancel this booking?')">
+                            <i class="fas fa-times"></i> Cancel Booking
+                        </a>
+                    {% endif %}
+                    <a href="{% url 'my_bookings' %}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to My Bookings
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
