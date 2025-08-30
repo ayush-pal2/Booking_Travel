@@ -35,7 +35,7 @@
                     <i class="fas fa-clock"></i> {{ travel.date_time|date:"M d, Y H:i" }}<br>
                     <i class="fas fa-users"></i> {{ travel.available_seats }} seats available
                 </p>
-                <h5 class="text-primary">${{ travel.price }}</h5>
+                <h5 class="text-primary">₹{{ travel.price }}</h5>
             </div>
             <div class="card-footer">
                 {% if user.is_authenticated %}

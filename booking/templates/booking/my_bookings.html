@@ -27,7 +27,7 @@
                                 <strong>Route:</strong> {{ booking.travel_option.source }} → {{ booking.travel_option.destination }}<br>
                                 <strong>Date:</strong> {{ booking.travel_option.date_time|date:"M d, Y H:i" }}<br>
                                 <strong>Seats:</strong> {{ booking.number_of_seats }}<br>
-                                <strong>Total:</strong> <span class="text-primary">${{ booking.total_price }}</span><br>
+                                <strong>Total:</strong> <span class="text-primary">₹{{ booking.total_price }}</span><br>
                                 <strong>Booked:</strong> {{ booking.booking_date|date:"M d, Y H:i" }}
                             </p>
                         </div>
